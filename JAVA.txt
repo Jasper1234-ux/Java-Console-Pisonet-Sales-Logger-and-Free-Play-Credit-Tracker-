@@ -1,0 +1,479 @@
+package com.mycompany.group6project;
+
+import java.util.Scanner;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+/**
+ *
+ * @author Kinston
+ */
+public class Group6project {
+
+    public static void main(String[] args) {
+        
+        Scanner group6 = new Scanner(System.in);
+     
+        String admin_username = "ADMIN";
+        String cashier_username = "CASHIER";
+        String password = "123";   
+        
+        String option_y = "Y";
+        String option_n = "N";
+
+        double daily = 0;
+        double monthly = 0;
+        double yearly = 0;
+  
+        String[] customer_name = new String[100];
+        String[] assigned_id = new String[100];
+        int count = 0;
+
+        System.out.println("==============================================================");
+        System.out.println("      PISONET SALES LOGGER AND FREE-PLAY CREDIT TRACKER       ");
+        System.out.println("==============================================================");
+
+        while (true) {
+            System.out.println("----------------------------MENU-------------------------- ");
+            System.out.println("                  1.>>>    ADMIN                           ");
+            System.out.println("                  2.>>>   CASHIER                          ");
+            System.out.println("                  3.>>>     EXIT                           ");
+            System.out.println("-------------------------------------------------------------- ");
+            System.out.print("ENTER YOUR CHOICE NUMBER :  ");
+
+            String user_input = group6.nextLine();
+
+            if (!user_input.matches("\\d+")) {
+                System.out.println("-INVALID INPUT PLEASE CHOOSE AVAILABLE NUMBER OPTIONS-");
+                continue;
+            }
+
+            int choice = Integer.parseInt(user_input);
+
+            
+            if (choice == 1) {
+
+                while (true) {
+                    System.out.println("--------------------------ADMIN LOGIN------------------------------");
+                    System.out.print("ENTER ADMIN USERNAME  : ");
+                    String admin = group6.nextLine();
+
+                    System.out.print("ENTER PASSWORD : ");
+                    String admin_password = group6.nextLine();
+
+                    if (admin.equals(admin_username) && admin_password.equals(password)) {
+                        System.out.println("=======================================================");
+                        System.out.println("                    LOGIN SUCCESSFUL                   ");
+                        System.out.println("=======================================================");
+                        break;
+                    } else {
+                        System.out.println("--INVALID ADMIN USERNAME AND PASSWORD PLEASE TRY AGAIN--");
+                    }
+                }
+
+                while (true) {
+                    System.out.println("                                                       ");
+                    System.out.println("---------------------ADMIN MAIN MENU-------------------");
+                    System.out.println("        1.>>>         SALES LOGGER                     ");
+                    System.out.println("        2.>>>       FREE-PLAY TRACKER                  ");
+                    System.out.println("        3.>>>   VIEW SALES & FREE-PLAY CREDIT          ");
+                    System.out.println("        4.>>>        RETURN TO MENU                    ");
+                    System.out.println("-------------------------------------------------------");
+                    System.out.print("ENTER YOUR CHOICE NUMBER :  ");
+                    
+
+                    String admin_input = group6.nextLine();
+
+                    if (!admin_input.matches("\\d+")) {
+                        System.out.println("-INVALID INPUT PLEASE CHOOSE AVAILABLE NUMBER OPTIONS-");
+                        continue;
+                    }
+
+                    int admin_menu = Integer.parseInt(admin_input);
+
+                    switch (admin_menu) {
+
+                        case 1:
+                            System.out.println("------------------ SALES LOGGER------------ ");                  
+                            
+                        while (true) {
+                            
+                            System.out.print("ENTER SALES AMOUNT : ");
+                            String sale_input = group6.nextLine();
+ 
+                            if (!sale_input.matches("\\d{1,3}(,\\d{3})*(\\.\\d{1,2})?")) {
+                                System.out.println("--INVALID INPUT AMOUNT PLEASE TYPE AMOUNT FORMAT (EX 1,000)--");
+                                continue;
+                            }
+
+
+                            sale_input = sale_input.replace(",", "");
+                            double amount = Double.parseDouble(sale_input);
+
+                            daily += amount;
+                            monthly += amount;
+                            yearly += amount;
+                            
+                        String add;  
+
+                        while(true) {
+                            System.out.print("ADD SALES AMOUNT? (Y/N): ");
+                            add = group6.nextLine();
+
+                            if (add.equals("y") || add.equals("Y") || add.equals("n") || add.equals("N")) {
+                                break;
+                            }
+                                System.out.println("--INVALID INPUT ENTER Y OR N ONLY--");
+                                
+                            }
+                            if (add.equalsIgnoreCase("N")) {
+                                break;
+                            }
+                        }
+                                                   
+                        
+                            LocalDateTime admin_sale = LocalDateTime.now();
+                            DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss a");
+                                       
+                            System.out.println("----------------------SALES LOGGED---------------------");
+                            System.out.println("=======================================================");
+                            System.out.println("       TIME : " + admin_sale.format(formatter1));
+                            System.out.println("       DAILY SALE   : " + String.format("%,.0f", daily) + " PHP ");
+                            System.out.println("       MONTHLY SALE : " + String.format("%,.0f", monthly) + " PHP ");
+                            System.out.println("       YEARLY SALE  : " + String.format("%,.0f", yearly) + " PHP ");
+                            System.out.println("=======================================================");
+                            break;
+                            
+                               
+                        case 2:
+                            while (true) {
+                                
+                                
+                                System.out.println("------------------FREE PLAY TRACKER----------------");
+                                System.out.println("===================================================");
+                                System.out.println("           1.>>>     ADD CUSTOMER                  ");
+                                System.out.println("           2.>>>     TRACK CUSTOMER                 ");
+                                System.out.println("           3.>>>     DELETE RECORD                 ");
+                                System.out.println("           4.>>>         BACK                      ");
+                                System.out.println("===================================================");
+                                System.out.print("ENTER YOUR CHOICE NUMBER :  ");
+
+                                String fp_input = group6.nextLine();
+
+                                if (!fp_input.matches("\\d+")) {
+                                    System.out.println("-INVALID INPUT PLEASE CHOOSE AVAILABLE NUMBER OPTIONS-");
+                                    continue;
+                                }
+
+                                int fp_menu = Integer.parseInt(fp_input);
+
+                                switch (fp_menu) {
+
+                                    
+                                    case 1:
+                                        while (true) {
+                                        System.out.print("ENTER CUSTOMER NAME : ");
+                                        String name = group6.nextLine();
+                                        
+                                        if (!name.matches("^[a-zA-Z ]+$")) {
+                                            System.out.println("--INVALID NAME FORMAT LETTERS ONLY--");
+                                            continue;
+                                        }
+                                        
+                                        if (name.length() < 5 || !name.contains(" ")) {
+                                            System.out.println("--PLEASE ENTER FULL NAME (First and Last Name)--");
+                                            continue;                                              
+                                        }
+                                        
+     
+                                        boolean exist = false;
+                                        for (int i = 0; i < count; i++) {
+                                            if (customer_name[i] != null && customer_name[i].equalsIgnoreCase(name)) {
+                                                 exist = true;
+                                                 break;
+                                             }
+                                        }
+                                        
+                                        if (exist) {
+                                            System.out.println("--NAME ALREADY EXISTS--");
+                                            continue;
+                                        }
+                                        
+                                        String first_code = "02";
+                                        String second_code = "2526";
+                                        
+                                        int sequence = count + 1;
+
+                                        String sequence_code = String.format("%03d", sequence);
+                                        String generated_id = first_code + "-" + second_code + "-" + sequence_code;
+                                        
+                                        customer_name[count] = name;
+                                        assigned_id[count] = generated_id;
+                                        count++;
+                                        
+                                        
+                                        LocalDateTime sales = LocalDateTime.now();
+                                        DateTimeFormatter formatter4 = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss a");
+                                        
+                                        System.out.println("-------------CUSTOMER FREE PLAY GRANTED--------------");
+                                        System.out.println("=====================================================");
+                                        System.out.println("       NAME = " + name                                );
+                                        System.out.println("       CUSTOMER ID = "  + generated_id                 );
+                                        System.out.println("       TIME  = "  + sales.format(formatter4)          );
+                                        System.out.println("=====================================================");
+                                        break;
+                                        }
+                                        break;
+                                
+
+                                    
+                                    case 2:
+                                        
+                                    String searchid;
+                                    while (true) {
+                                        System.out.print("ENTER CUSTOMER ID : (format XX-XXXX-XXX): ");
+                                        searchid = group6.nextLine();
+                                        
+                                        if (searchid.matches("\\d{2}-\\d{4}-\\d{3}")) {
+                                            break;
+                                        }else{
+                                            System.out.println("--INVALID ID NUMBER FORMAT FOLLOW (XX-XXXX-XXX)--");
+                                        }
+                                        }
+
+                                        boolean found = false;
+
+                                        for (int i = 0; i < count; i++) {
+                                            if (assigned_id[i] != null && assigned_id[i].equalsIgnoreCase(searchid)) {
+
+                                                LocalDateTime info = LocalDateTime.now();
+                                                DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
+                                                System.out.println("======================== INFORMATION ====================");
+                                                System.out.println(" ID NUMBER = " + assigned_id[i]                             );
+                                                System.out.println(" STATUS    = CLAIMED"                                   );
+                                                System.out.println(" NAME      = " + customer_name[i]                           );
+                                                System.out.println(" DATE/TIME = " + info.format(formatter2)                      );
+                                                System.out.println("==========================================================");
+
+                                                found = true;
+                                                break;
+                                            }
+                                        }
+
+                                        if (!found) {
+                                            System.out.println("--------------RECORD NOT FOUND----------");
+                                        }
+                                        break;
+
+                                    
+                                    case 3:
+                                    String del_id;
+                                    while(true) {
+                                        System.out.print("ENTER CUSTOMER ID TO DELETE (format XX-XXXX-XXX): ");
+                                        del_id = group6.nextLine();
+                                        
+                                        if (del_id.matches("\\d{2}-\\d{4}-\\d{3}")) {
+                                            break;
+                                        }else{
+                                            System.out.println("--INVALID ID NUMBER FORMAT FOLLOW (XX-XXXX-XXX)--");
+                                            
+                                        }
+                                        }
+
+                                        boolean deleted = false;
+
+                                        for (int i = 0; i < count; i++) {
+                                            if (assigned_id[i] != null && assigned_id[i].equalsIgnoreCase(del_id)) {
+
+                                                for (int j = i; j < count - 1; j++) {
+                                                    customer_name[j] = customer_name[j + 1];
+                                                    assigned_id[j] = assigned_id[j + 1];
+                                                }
+
+                                                count--;
+                                                deleted = true;
+                                                break;
+                                            }
+                                        }
+
+                                        if (deleted) {
+                                            System.out.println("-----------------RECORD DELETED-------------");
+                                        } else {
+                                            System.out.println("-----------------RECORD NOT FOUND------------");
+                                        }
+                                        break;
+
+                                    case 4:
+                                        break;
+
+                                    default:
+                                        System.out.println("-INVALID INPUT PLEASE CHOOSE AVAILABLE NUMBER OPTIONS-");
+                                }
+
+                                if (fp_menu == 4) break;
+                            }
+                            break;
+
+                        case 3:
+                            
+                            LocalDateTime view_sale = LocalDateTime.now();
+                            DateTimeFormatter formatter3 = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss a ");
+                            
+                            System.out.println("                                                          ");
+
+                            System.out.println("--------------VIEW SALES & FREE-PLAY CREDIT---------------");
+                            System.out.println("==========================================================");
+                            System.out.println("       DAILY SALE   : " + String.format("%,.0f", daily)   + " PHP ");
+                            System.out.println("       MONTHLY SALE : " + String.format("%,.0f", monthly) + " PHP ");
+                            System.out.println("       YEARLY SALE  : " + String.format("%,.0f", yearly)  + " PHP ");
+                            System.out.println("==========================================================");
+
+                            System.out.println("--------------------FREE PLAY USERS-----------------------");
+                            for (int i = 0; i < count; i++) {
+                                System.out.println(customer_name[i] + " = " + assigned_id[i] +  " TIME : " + view_sale.format(formatter3)   ); 
+                            }
+                            break;
+
+                        case 4:
+                            break;
+
+                        default:
+                            System.out.println("-INVALID INPUT PLEASE CHOOSE AVAILABLE NUMBER OPTIONS-");
+                    }
+
+                    if (admin_menu == 4) break;
+                }
+
+            
+            } else if (choice == 2) {
+
+                while (true) {
+                    System.out.println("--------------------------CASHIER LOGIN------------------------------");
+                    System.out.print("ENTER CASHIER USERNAME: ");
+                    String cashier = group6.nextLine();
+
+                    System.out.print("ENTER PASSWORD: ");
+                    String cashier_pass = group6.nextLine();
+
+                    if (cashier.equals(cashier_username) && cashier_pass.equals(password)) {
+                        break;
+                    } else {
+                        System.out.println("--INVALID CASHIER USERNAME AND PASSWORD PLEASE TRY AGAIN--");
+                    }
+                }
+
+                while (true) { 
+                    System.out.println("---------------------CASHIER MAIN MENU-------------------");
+                    System.out.println("        1.>>>   VIEW SALES & FREE-PLAY CREDIT            ");
+                    System.out.println("        2.>>>         ADD SALES LOGGER                   ");
+                    System.out.println("        3.>>>          RETURN TO MENU                    ");
+                    System.out.println("---------------------------------------------------------");
+                    System.out.print("ENTER YOUR CHOICE NUMBER :  ");
+
+                    String cashier_input = group6.nextLine();
+
+                    if (!cashier_input.matches("\\d+")) {
+                        System.out.println("-INVALID INPUT PLEASE CHOOSE AVAILABLE NUMBER OPTIONS-");
+                        continue;
+                    }
+
+                    int cashier_menu = Integer.parseInt(cashier_input);
+
+                    switch (cashier_menu) {
+
+                        case 1:
+                            
+                            LocalDateTime cashier_sale = LocalDateTime.now();
+                            DateTimeFormatter formatter4 = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+                            
+                            
+                            
+                            System.out.println("--------------VIEW SALES & FREE-PLAY CREDIT---------------");
+                            System.out.println("==========================================================");
+                            System.out.println("       DAILY SALE   : " + String.format("%,.0f", daily) + " PHP ");
+                            System.out.println("       MONTHLY SALE : " + String.format("%,.0f", monthly)+  " PHP ");
+                            System.out.println("       YEARLY SALE  : " + String.format("%,.0f", yearly) +  " PHP ");
+                            System.out.println("==========================================================");
+                            
+                            System.out.println("-------------------FREE PLAY USERS:------------------------");
+                            for (int i = 0; i < count; i++) {
+                                System.out.println(customer_name[i] + " = " + assigned_id[i] + "TIME : "+ cashier_sale.format(formatter4)   ); 
+                                
+                                
+                            }
+                            break;
+                            
+                            
+
+                        case 2:
+                            String cashier_add;
+                            while (true) {
+                               System.out.println("------------------ ADD SALES LOGGER------------ ");
+                               System.out.print("ENTER SALES AMOUNT : ");
+                               String sale_input = group6.nextLine();
+
+        
+                              if (!sale_input.matches("\\d{1,3}(,\\d{3})*(\\.\\d{1,2})?")) {
+                                 System.out.println("--INVALID INPUT AMOUNT PLEASE TYPE AMOUNT FORMAT (EX 1,000)--");
+                                 continue;
+                              }
+
+       
+                              sale_input = sale_input.replace(",", "");
+                              double amount = Double.parseDouble(sale_input);
+
+                              daily += amount;
+                              monthly += amount;
+                              yearly += amount;
+                              
+                              
+                            String cashier_dc;
+                            while(true) {    
+                            
+                              System.out.print("ADD SALES AMOUNT? (Y/N): ");
+                              cashier_dc = group6.nextLine();
+                              
+                              
+
+                              if (cashier_dc.equals("y") || cashier_dc.equals("Y") || cashier_dc.equals("n") || cashier_dc.equals("N")) {
+                                  break;
+                              }else{
+                                  System.out.println("--INVALID INPUT! ENTER Y OR N ONLY--");
+                              }
+                            }
+
+                            if (cashier_dc.equalsIgnoreCase("N")) {
+                                break;
+                            }
+                        }
+                         
+                            LocalDateTime cashier_time = LocalDateTime.now();
+                            DateTimeFormatter formatter5 = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss a");
+                                       
+                            System.out.println("----------------------SALES ADDED ---------------------");
+                            System.out.println("=======================================================");
+                            System.out.println("       TIME : " + cashier_time.format(formatter5));
+                            System.out.println("=======================================================");
+                            break;
+                                    
+                        case 3:
+                            break;
+
+                        default:
+                            System.out.println("-INVALID INPUT PLEASE CHOOSE AVAILABLE NUMBER OPTIONS-");
+                    }
+
+                    if (cashier_menu == 3) break;
+                }
+
+            
+            } else if (choice == 3) {
+                System.out.println("");
+                break;
+
+            } else {
+                System.out.println("-INVALID INPUT PLEASE CHOOSE AVAILABLE NUMBER OPTIONS-");
+            }
+        }
+    }
+}

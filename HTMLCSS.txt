@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Pisonet System</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #0d0d0d;
+            color: white;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            padding: 15px 10%;
+            background: #111;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #00f2fe;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-links a {
+            margin: 0 10px;
+            text-decoration: none;
+            color: #ccc;
+            white-space: nowrap;
+            cursor: pointer;
+        }
+
+        .nav-links a:hover {
+            color: #00f2fe;
+        }
+
+        .login-btn {
+            border: 1px solid #00f2fe;
+            padding: 8px 15px;
+            border-radius: 5px;
+            background: transparent;
+            color: #00f2fe;
+            cursor: pointer;
+        }
+
+        .login-btn:hover {
+            background: #00f2fe;
+            color: black;
+        }
+
+        .hero {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            gap: 40px;
+            padding: 60px 10%;
+        }
+
+        .hero-text h1 {
+            font-size: 45px;
+        }
+
+        .hero-text span {
+            color: #00f2fe;
+        }
+
+        .hero img {
+            width: 500px;
+            border-radius: 15px;
+            box-shadow: 0 0 20px #00f2fe;
+        }
+
+        .cards {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .card {
+            background: #111;
+            padding: 20px;
+            width: 200px;
+            border-radius: 10px;
+            text-align: center;
+            border: 1px solid #222;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .card:hover {
+            background: #00f2fe;
+            color: black;
+            transform: translateY(-5px);
+        }
+
+        #login-modal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 320px;
+            background: #111;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 0 20px #00f2fe;
+            text-align: center;
+        }
+
+        #login-modal h2 {
+            margin-bottom: 20px;
+            color: #00f2fe;
+        }
+
+        #login-modal input {
+            width: 90%;
+            padding: 10px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 8px;
+            outline: none;
+        }
+
+        #login-modal button {
+            width: 95%;
+            padding: 10px;
+            margin-top: 10px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            background: #00f2fe;
+            color: black;
+            font-weight: bold;
+        }
+
+        #login-modal button:hover {
+            background: #00c3cc;
+        }
+
+        .standalone button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background: #00f2fe;
+            color: black;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .standalone {
+            display: none;
+            padding: 60px 10%;
+            text-align: center;
+            background: #111;
+        }
+    </style>
+</head>
+
+<body>
+
+<nav>
+    <div class="logo">PISONET SALES LOGGER AND FREE-PLAY CREDIT TRACKER </div>
+
+    <div class="nav-links">
+        <a onclick="showStandalone('home')"> Home </a>
+        <a onclick="showStandalone('settings')"> Settings</a>
+        <a onclick="showStandalone('personalization')"> Personalization</a>
+        <a onclick="showStandalone('about')"> About </a>
+    </div>
+
+    <button class="login-btn" onclick="openLogin()">Login</button>
+</nav>
+
+<!-- HOME -->
+<div id="home">
+    <div class="hero">
+        <div class="hero-text">
+            <h1> PISONET SALES  <span> AND FREE-PLAY CREDIT TRACKER</span></h1>
+            <p>Store Sales and Track Free-play Credits.</p>
+        </div>
+
+        <img src="https://steemitimages.com/DQmY2EQWXozjEfs7FGQqkodmCuJKN7TgxaQ25fPCLK8Nprb/psionet.jpg">
+
+        <div class="cards">
+            <div class="card" onclick="showStandalone('sales')"> Sales Logger</div>
+            <div class="card" onclick="showStandalone('freeplay')"> Free-Play Tracker</div>
+            <div class="card" onclick="showStandalone('records')"> View Sales And Free-play Records</div>
+        </div>
+    </div>
+</div>
+
+<!-- SETTINGS -->
+<div id="settings" class="standalone">
+    <h2>Settings</h2>
+    <p>Customize system preferences here.</p>
+    <button onclick="showStandalone('home')">Back</button>
+</div>
+
+<!-- PERSONALIZATION -->
+<div id="personalization" class="standalone">
+    <h2>Personalization</h2>
+    <p>Adjust theme and layout options.</p>
+    <button onclick="showStandalone('home')">Back</button>
+</div>
+
+<!-- ABOUT -->
+<div id="about" class="standalone">
+    <h2>About</h2>
+    <p>
+        This system helps track Pisonet sales and manage free-play credits efficiently.
+        It is designed for admins and cashiers to monitor usage and transactions easily.
+    </p>
+    <button onclick="showStandalone('home')">Back</button>
+</div>
+
+<!-- SALES LOGGER -->
+<div id="sales" class="standalone">
+    <h2>Sales Logger</h2>
+    <button onclick="logSale()">Add Sale</button>
+    <button onclick="showStandalone('home')">Back</button>
+</div>
+
+<!-- FREE PLAY -->
+<div id="freeplay" class="standalone">
+    <h2>Free-Play Tracker</h2>
+    <button onclick="addFreePlay()">Add Free-Play</button>
+    <button onclick="showStandalone('home')">Back</button>
+</div>
+
+<!-- RECORDS -->
+<div id="records" class="standalone">
+    <h2>View Records</h2>
+    <button onclick="viewRecords()">Show Records</button>
+    <button onclick="showStandalone('home')">Back</button>
+</div>
+
+<!-- LOGIN -->
+<div id="login-modal">
+    <h2>PISONET LOGIN</h2>
+    <input type="text" placeholder="Username">
+    <input type="password" placeholder="Password">
+    <button onclick="login()">Login</button>
+    <button onclick="closeLogin()">Close</button>
+</div>
+
+<script>
+function openLogin() { document.getElementById("login-modal").style.display="block"; }
+function closeLogin() { document.getElementById("login-modal").style.display="none"; }
+
+function login(){
+    let username = document.querySelector("#login-modal input[type='text']").value;
+    let password = document.querySelector("#login-modal input[type='password']").value;
+    if(username==="admin" && password==="1234"){ alert("Welcome Admin!"); closeLogin(); }
+    else if(username==="cashier" && password==="1234"){ alert("Welcome Cashier!"); closeLogin(); }
+    else{ alert("Invalid Username or Password!"); }
+}
+
+/* STORAGE */
+let sales = [];
+let freePlays = [];
+
+/* FUNCTIONS */
+function logSale(){
+    let amount = prompt("Enter sale amount:");
+    if(amount) { sales.push(amount); alert("Sale recorded!"); }
+}
+
+function addFreePlay(){
+    let minutes = prompt("Enter free-play minutes:");
+    if(minutes) { freePlays.push(minutes); alert("Free-play recorded!"); }
+}
+
+function viewRecords(){
+    let salesList = sales.length ? sales.join(", ") : "No sales yet";
+    let freeList = freePlays.length ? freePlays.join(", ") : "No free-play yet";
+    alert("SALES: " + salesList + "\nFREE-PLAY: " + freeList);
+}
+
+/* SHOW / HIDE PAGES */
+function showStandalone(id){
+    document.querySelectorAll('.standalone, #home').forEach(el=> el.style.display='none');
+    document.getElementById(id).style.display = id==='home' ? '' : 'block';
+}
+</script>
+
+</body>
+</html>
